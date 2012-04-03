@@ -18,7 +18,6 @@
                  (or (mongo/fetch-one :refs :where {:name name})
                      (mongo/insert! :refs {:name name}))
                  (refs/distributed-ref zk-client name (avout.refs.mongo.MongoVersionedStateContainer. mongo-conn name)))]
-         (dosync!! zk-client (ref-set!! r nil))
          r))))
 
 
