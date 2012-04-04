@@ -28,10 +28,7 @@
        (set-validator! validator)
        (.reset init-value)))
   ([zk-client mongo-conn name]
-     (mongo/with-mongo mongo-conn
-       (if (mongo/fetch-one :atoms :where {:name name})
-         (atoms/distributed-atom zk-client name (avout.atoms.mongo.MongoStateContainer. mongo-conn name))
-         (throw (RuntimeException. "Either provide a name of an existing distributed atom, or provide an intial value"))))))
+     (atoms/distributed-atom zk-client name (avout.atoms.mongo.MongoStateContainer. mongo-conn name))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mongo-atom examples
