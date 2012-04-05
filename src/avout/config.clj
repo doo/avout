@@ -2,9 +2,9 @@
   (:require [zookeeper.data :as data]))
 
 
-(def ^:dynamic *use-cache* true)
+(def ^{:dynamic true} *use-cache* true)
 
-(def ^:dynamic *stm-node* "/stm")
+(def ^{:dynamic true} *stm-node* "/stm")
 
 (def HISTORY "/history")
 (def TXN "/txn")
