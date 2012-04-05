@@ -17,12 +17,13 @@
       (mongo/destroy! :atoms (mongo/fetch-one :atoms :where {:name name}))))
 
   (getState [this]
-    (:value (mongo/with-mongo conn
-              (mongo/fetch-one :atoms :where {:name name}))))
+    (when-let [value (:value (mongo/with-mongo conn
+                               (mongo/fetch-one :atoms :where {:name name})))]
+      (read-string value))) 
 
   (setState [this new-value]
     (mongo/with-mongo conn
       (let [data (mongo/fetch-one :atoms :where {:name name})]
-        (mongo/update! :atoms data (assoc data :value new-value))))))
+        (mongo/update! :atoms data (assoc data :value (pr-str new-value)))))))
 
 
